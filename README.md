@@ -26,16 +26,18 @@ atau justru muncul sebagai **kombinasi pola lintas dimensi**.
 - **Label fraud**: tersedia pada kolom `is_fraud`
 
 Struktur folder data:
+```text
 data/
 ├── raw/
 │ └── Bank_Transaction_Fraud_Detection.csv
 └── processed/
 └── banking_transactions_clean.csv
-
+```
 
 ---
 
 ## 🏗️ Arsitektur Pipeline
+```text
 Raw CSV
 ↓
 01_explore_raw_data.ipynb
@@ -53,7 +55,7 @@ PostgreSQL (transactions_raw)
 PostgreSQL (transactions_analytics)
 ↓
 05_fraud_analysis.ipynb
-
+```
 
 Pipeline ini menekankan **alur data yang jelas, modular, dan scalable**.
 
@@ -166,6 +168,7 @@ Analisis difokuskan untuk menjawab **8 pertanyaan bisnis utama**:
 ---
 
 ## 📁 Struktur Folder Final
+```text
 banking-analytics-pipeline/
 ├── data/
 │ ├── raw/
@@ -181,7 +184,7 @@ banking-analytics-pipeline/
 │ └── 04_transform_transactions.sql
 ├── LICENSE
 └── README.md
-
+```
 
 ---
 
