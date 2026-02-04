@@ -3,9 +3,10 @@
 
 ---
 
-## 📌 Ringkasan Proyek
-Proyek ini membangun **pipeline analitik transaksi perbankan** secara end-to-end,  
-mulai dari **data mentah (CSV)** hingga **analisis risiko fraud berbasis visualisasi**.
+## 📌 Project Overview
+Proyek ini membangun **pipeline analitik transaksi perbankan secara end-to-end**,
+mulai dari **data mentah (CSV)**, **database & transformasi SQL**,  
+hingga **analisis risiko fraud dan dashboard monitoring interaktif berbasis Power BI**.
 
 Pipeline dirancang untuk menunjukkan integrasi yang solid antara:
 
@@ -31,7 +32,7 @@ data/
 ├── raw/
 │ └── Bank_Transaction_Fraud_Detection.csv
 └── processed/
-└── banking_transactions_clean.csv
+  └── banking_transactions_clean.csv
 ```
 
 ---
@@ -61,7 +62,7 @@ Pipeline ini menekankan **alur data yang jelas, modular, dan scalable**.
 
 ---
 
-## 🔍 Tahapan Proyek
+## 🔍 Tahapan Project
 
 ### 1️⃣ Exploratory Data Analysis – Raw Data
 📓 Notebook:  
@@ -140,15 +141,78 @@ Analisis difokuskan untuk menjawab **8 pertanyaan bisnis utama**:
 
 ---
 
-## 📈 Temuan Utama (Ringkas)
+### 6️⃣ Fraud Risk Monitoring Dashboard (Power BI)
+
+Sebagai tahap akhir dari pipeline analitik, proyek ini dilengkapi dengan  
+**dashboard interaktif berbasis Power BI** yang dirancang menyerupai  
+**fraud risk monitoring dashboard pada institusi perbankan**.
+
+Dashboard ini berfungsi sebagai **decision-support layer**,  
+yang menjembatani hasil analisis eksploratif dengan  
+**kebutuhan monitoring operasional dan pengambilan keputusan berbasis risiko**.
+
+#### 🎯 Tujuan Dashboard
+Dashboard dirancang untuk:
+- Mengidentifikasi **konsentrasi risiko fraud** lintas dimensi transaksi
+- Memahami **pola intraday fraud behavior**
+- Membantu **prioritisasi area risiko** berdasarkan kombinasi atribut transaksi
+- Menyediakan konteks geografis untuk eksplorasi risiko fraud
+
+#### 📌 Komponen Utama Dashboard
+
+**KPI Summary**
+- Total Transactions  
+- Total Fraud Transactions  
+- Overall Fraud Rate (%)
+
+**Risk Breakdown Visuals**
+- Fraud Rate by Device Type
+- Fraud Rate by Merchant Category
+- Fraud Rate by Transaction Hour
+- Fraud Rate Pattern by Hour (per Transaction Type)
+
+**Geographic Context**
+- Peta digunakan sebagai **contextual indicator**
+- Menunjukkan wilayah yang sedang difilter (bukan ranking absolut)
+
+#### 🎛️ Interactive Filters
+- Transaction Type
+- Gender
+- State
+
+Seluruh visual terhubung secara dinamis untuk mendukung eksplorasi risiko
+dari berbagai sudut pandang bisnis.
+
+#### 📷 Dashboard & File Power BI
+
+Dashboard disertakan dalam repositori ini dalam bentuk:
+
+- File Power BI:  
+  `dashboard/Banking_Fraud_Risk_Analytics.pbix`
+- Preview statis:  
+  `dashboard/powerbi_dashboard.png`
+
+Reviewer dapat langsung membuka file `.pbix` untuk:
+- Mengeksplorasi interaksi filter
+- Melihat relasi antar visual
+- Memvalidasi metrik dan perhitungan fraud rate
+
+Dashboard dibangun langsung di atas tabel
+`transactions_analytics` sebagai **single source of truth**.
+
+---
+
+## 📈 Executive Risk Summary
 - Fraud rate relatif stabil di berbagai dimensi transaksi
 - Tidak ada satu faktor tunggal yang mendominasi risiko fraud
 - Pola fraud muncul sebagai kombinasi perilaku lintas dimensi
 - Beberapa wilayah menunjukkan fraud rate lebih tinggi (bersifat indikatif)
+- Temuan divisualisasikan kembali dalam bentuk dashboard interaktif
+  untuk mendukung monitoring dan eksplorasi risiko fraud
 
 ---
 
-## 💼 Nilai Bisnis
+## 💼 Business Value
 - Menunjukkan keterbatasan pendekatan fraud berbasis satu variabel
 - Memberikan dasar untuk pengembangan lanjutan:
   - multi-factor risk scoring
@@ -158,12 +222,13 @@ Analisis difokuskan untuk menjawab **8 pertanyaan bisnis utama**:
 
 ---
 
-## 🧰 Teknologi yang Digunakan
+## 🧰 Tech Stack
 - **Python** (pandas, matplotlib, seaborn, psycopg2)
 - **PostgreSQL**
 - **SQL**
 - **Docker**
 - **Jupyter Notebook**
+- **Power BI**
 
 ---
 
@@ -182,6 +247,9 @@ banking-analytics-pipeline/
 ├── scripts/
 │ ├── 03_load_raw_to_postgres.py
 │ └── 04_transform_transactions.sql
+├── dashboard/
+│ ├── Banking_Fraud_Risk_Analytics.pbix
+│ └── powerbi_dashboard.png
 ├── LICENSE
 └── README.md
 ```
@@ -192,3 +260,13 @@ banking-analytics-pipeline/
 Proyek ini bersifat **eksploratif dan analitis**.  
 Seluruh temuan ditujukan sebagai dasar **pengambilan keputusan bisnis**  
 dan **pengembangan sistem fraud detection lanjutan**.
+
+---
+
+## ▶️ How to Run Locally
+
+Untuk menjalankan pipeline ini secara lokal, pastikan Docker dan Python (>=3.9) telah terpasang. 
+Jalankan PostgreSQL menggunakan `docker-compose up -d` pada folder `docker/`, lalu muat data hasil cleaning ke database dengan menjalankan script `scripts/03_load_raw_to_postgres.py`. 
+Setelah tabel `transactions_raw` terbentuk, jalankan transformasi bisnis menggunakan `scripts/04_transform_transactions.sql` untuk menghasilkan tabel `transactions_analytics`. 
+Analisis eksploratif dapat dijalankan melalui notebook `notebooks/05_fraud_analysis.ipynb`, 
+dan dashboard Power BI dapat dibuka langsung menggunakan file `.pbix` pada folder `dashboard/` yang terhubung ke database PostgreSQL sebagai sumber data.
