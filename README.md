@@ -232,7 +232,7 @@ Dashboard dibangun langsung di atas tabel
 
 ---
 
-## 📁 Struktur Folder Final
+## 📁 Struktur Folder
 ```text
 banking-analytics-pipeline/
 ├── data/
